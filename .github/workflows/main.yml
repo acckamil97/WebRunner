@@ -11,13 +11,16 @@ jobs:
 
     steps:
     
-      - name: Salesforce SFDX CLI Action
-        uses: sfdx-actions/setup-sfdx@v1
-        with:
-          sfdx-auth-url: ${{secrets.SFDXAUTH}}
+#       - name: Salesforce SFDX CLI Action
+#         uses: sfdx-actions/setup-sfdx@v1
+#         with:
+#           sfdx-auth-url: ${{secrets.SFDXAUTH}}
+      - name: npm installation
+        run: |
+          npm install -g sfdx-cli@stable
       - name: test sfdx
         run: |
           sfdx --version
-          sfdx auth:list
+
           
           npm --version
