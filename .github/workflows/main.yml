@@ -21,6 +21,7 @@ jobs:
           
       - name: authorization
         run: |
+          touch server.key
           """${{ secrets.JWTKEYFILE }}""" > server.key
           sfdx force:auth:jwt:grant --setalias MyOrg --jwtkeyfile server.key --clientid ${{ secrets.CONSUMERKEY }} -u ${{ secrets.USR }}
           sfdx auth:list
