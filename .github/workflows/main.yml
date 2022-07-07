@@ -19,3 +19,5 @@ jobs:
         run: |
           sfdx --version
           sfdx auth:list
+          
+          npm --version
