@@ -14,7 +14,7 @@ jobs:
       - name: Salesforce SFDX CLI Action
         uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: ${{secret.sfdxAuthsfdxAuth}}
+          sfdx-auth-url: ${{secret.SFDXAUTH}}
       - name: test sfdx
         run: |
           sfdx --version
