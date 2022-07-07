@@ -17,7 +17,7 @@ jobs:
 #           sfdx-auth-url: ${{secrets.SFDXAUTH}}
       - name: npm installation
         run: |
-          npm install -g sfdx-cli@stable
+          npm install --location=global sfdx-cli@stable
       - name: test sfdx
         run: |
           sfdx --version
