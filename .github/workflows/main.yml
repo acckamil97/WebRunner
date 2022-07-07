@@ -18,3 +18,4 @@ jobs:
       - name: test sfdx
         run: |
           sfdx --version
+          sfdx auth:list
