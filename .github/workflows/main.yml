@@ -1,0 +1,20 @@
+name: sfdx
+
+on:
+  workflow_dispatch:
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Salesforce SFDX CLI Action
+        uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{secret.sfdxAuthsfdxAuth}}
+      - name: test sfdx
+        run: |
+          sfdx --version
