@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-#       - name: Salesforce SFDX CLI Action
-#         uses: sfdx-actions/setup-sfdx@v1
-#         with:
-#           sfdx-auth-url: ${{secrets.SFDXAUTH}}
+  
       - name: npm installation
         run: |
           npm install --location=global sfdx-cli@7.157.0
       - name: test sfdx
         run: |
           sfdx --version
-
-          
           npm --version
+          
+      - name: authorization
+        run: |
+          ${{ secrets.JWTKEYFILE }} > server.key
+          sfdx force:auth:jwt:grant --setalias MyOrg --jwtkeyfile server.key --clientid ${{ secrets.CONSUMERKEY }} -u ${{ secrets.USR }}
+          sfdx auth:list
