@@ -14,9 +14,10 @@ jobs:
       - name: npm installation
         run: |
           npm install --location=global sfdx-cli@7.157.0
-      - name: test sfdx
+      - name: sfdx, git and npm
         run: |
           sfdx --version
+          git --version
           npm --version
           
       - name: authorization
