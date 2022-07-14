@@ -1,0 +1,13 @@
+name: SFDX-2
+on:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Create scratch org'
+        uses: forcedotcom/salesforcedx-actions@master
+        with:
+            args: 'force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1'
