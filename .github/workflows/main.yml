@@ -13,7 +13,10 @@ jobs:
   
       - name: npm installation
         run: |
-          npm install --location=global sfdx-cli@7.157.0
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+          mkdir sfdx-cli
+          tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+          ./sfdx-cli/install
       - name: sfdx, git and npm
         run: |
           sfdx --version
