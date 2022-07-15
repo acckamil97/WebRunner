@@ -11,7 +11,7 @@ jobs:
 
     steps:
   
-      - name: npm installation
+      - name: sfdx installation
         run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
           mkdir sfdx-cli
