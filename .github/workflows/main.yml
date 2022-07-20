@@ -1,7 +1,10 @@
 name: sfdx
 
 on:
-  workflow_dispatch:
+  pull_request_review:
+    types: [submitted]
+    branches: [main]
+
 
 
 
@@ -10,18 +13,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-  
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: payload
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          
+      - name: create delta-package
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          pathsString=$(git diff HEAD^ --name-only force-app)
+          IFS=' ' read -r -a pathArray <<< "$pathsString"
+          
+          mkdir delta-package
+          mkdir delta-package/main
+          mkdir delta-package/main/default
+          
+          for element in "${pathArray[@]}"
+          do
+              IFS='/' read -r -a pathElementArray <<< "$element"
+              destination="delta-package/main/default/"+${pathElementArray[3]}+"/"+${pathElementArray[4]}
+              mkdir -p delta-package/main/default/${pathElementArray[3]}
+              toCopy="force-app/main/default/"+$pathElementArray[3]+"/"+$pathElementArray[4]
+              cp -r ${toCopy} ${destination}
+          done
+          
+          ls
+          
       - name: sfdx installation
         run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
           mkdir sfdx-cli
           tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
           ./sfdx-cli/install
-      - name: sfdx, git and npm
-        run: |
-          sfdx --version
-          git --version
-          npm --version
           
       - name: authorization
         run: |
@@ -31,3 +61,4 @@ jobs:
           sfdx auth:list
           
           git --version
+      
