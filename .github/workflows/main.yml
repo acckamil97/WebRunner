@@ -44,7 +44,8 @@ jobs:
               cp -r ${toCopy} ${destination}
           done
           
-          ls
+          ls delta-package/main/default
+          ls delta-package/main/default/Test7__c/
           
       - name: sfdx installation
         run: |
