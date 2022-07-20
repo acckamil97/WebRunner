@@ -38,9 +38,9 @@ jobs:
           for element in "${pathArray[@]}"
           do
               IFS='/' read -r -a pathElementArray <<< "$element"
-              destination="delta-package/main/default/"+${pathElementArray[3]}+"/"+${pathElementArray[4]}
+              destination="delta-package/main/default/${pathElementArray[3]}/${pathElementArray[4]}"
               mkdir -p delta-package/main/default/${pathElementArray[3]}
-              toCopy="force-app/main/default/"+${pathElementArray[3]}+"/"+${pathElementArray[4]}
+              toCopy="force-app/main/default/${pathElementArray[3]}/${pathElementArray[4]}"
               cp -r ${toCopy} ${destination}
           done
           
