@@ -1,0 +1,15 @@
+name: windowsTest 
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: [self-hosted, windows, x64]
+
+    steps:
+      - name: helloMessage
+        run: |
+          Write-Host "Helloo"
+          sfdx --version
