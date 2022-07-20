@@ -1,4 +1,4 @@
-name: sfdx
+name: webRunnerWorkflow
 
 on:
   pull_request_review:
