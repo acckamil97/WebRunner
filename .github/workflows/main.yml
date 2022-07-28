@@ -47,6 +47,14 @@ jobs:
           ls delta-package/main/default/objects
           ls delta-package/main/default/objects/Test7__c/
           
+      - name: create artifacts delta-package
+        uses: actions/upload-artifact@v3
+        with:
+          name: delta-package
+          path: delta-package
+          retention-days: 5
+          
+          
       - name: sfdx installation
         run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
