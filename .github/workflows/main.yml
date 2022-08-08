@@ -85,7 +85,7 @@ jobs:
         run: |
           git config --global user.email "acckamil97@gmail.com"
           git config --global user.name "acckamil97"
-          git branch -a
+          
           git checkout origin/${{env.BASE_REF}}
           git merge origin/${{env.HEAD_REF}} --no-commit
           git add force-app/
