@@ -84,6 +84,7 @@ jobs:
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           git fetch --all
+          git fetch origin
           git checkout HEAD:${{env.BASE_REF}}
           git merge origin/${{env.HEAD_REF}} --no-commit
           git add force-app/
