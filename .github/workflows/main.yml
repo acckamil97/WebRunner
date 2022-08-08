@@ -24,9 +24,6 @@ jobs:
           echo "$GITHUB_CONTEXT"
           
       - name: create delta-package
-        env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
           pathsString=$(git diff HEAD^ --name-only force-app)
           IFS=' ' read -r -a pathArray <<< "$pathsString"
@@ -34,6 +31,7 @@ jobs:
           mkdir delta-package
           mkdir delta-package/main
           mkdir delta-package/main/default
+          
           
           for element in "${pathArray[@]}"
           do
@@ -63,6 +61,8 @@ jobs:
           tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
           ./sfdx-cli/install
           
+          
+          
       - name: authorization
         run: |
           
@@ -71,4 +71,21 @@ jobs:
           sfdx auth:list
           
           git --version
+          
+          
+      - name: deployment 
+        run: |
+          
+          sfdx force:source:deploy --sourcepath delta-package -u MyOrg
+          
+      - name: merge source
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git checkout HEAD:${{env.BASE_REF}}
+          git merge origin/${{env.HEAD_REF}} --no-commit
+          git add force-app/
+          git commit -m "merge target branch:${{env.HEAD_REF}} and source branch:HEAD^"
+          git push origin HEAD:${{env.BASE_REF}}
       
