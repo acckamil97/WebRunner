@@ -83,9 +83,8 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          git pull ${{env.BASE_REF}}
           git branch -a
-          git checkout HEAD:${{env.BASE_REF}}
+          git checkout origin/${{env.BASE_REF}}
           git merge origin/${{env.HEAD_REF}} --no-commit
           git add force-app/
           git commit -m "merge target branch:${{env.HEAD_REF}} and source branch:HEAD^"
