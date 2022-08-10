@@ -36,8 +36,10 @@ jobs:
           echo y | sfdx plugins:install sfpowerkit
           
       - name: create delta-package
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
-          sfdx sfpowerkit:project:diff --revisionfrom HEAD^ --output delta-package
+          sfdx sfpowerkit:project:diff --revisionfrom origin/${{env.BASE_REF}} --output delta-package
           
           
       - name: create artifacts delta-package
