@@ -1,4 +1,4 @@
-name: webRunnerWorkflow
+name: Deployment
 
 on:
   pull_request_review:
