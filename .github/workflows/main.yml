@@ -33,7 +33,7 @@ jobs:
           tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
           ./sfdx-cli/install
           
-          yes y | sfdx plugins:install sfpowerkit
+          echo y | sfdx plugins:install sfpowerkit
           
       - name: create delta-package
         run: |
