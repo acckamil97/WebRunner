@@ -23,35 +23,7 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           
-      - name: create delta-package
-        run: |
-          pathsString=$(git diff HEAD^ --name-only force-app)
-          IFS=' ' read -r -a pathArray <<< "$pathsString"
-          
-          mkdir delta-package
-          mkdir delta-package/main
-          mkdir delta-package/main/default
-          
-          
-          for element in "${pathArray[@]}"
-          do
-              IFS='/' read -r -a pathElementArray <<< "$element"
-              destination="delta-package/main/default/${pathElementArray[3]}/${pathElementArray[4]}"
-              mkdir -p delta-package/main/default/${pathElementArray[3]}
-              toCopy="force-app/main/default/${pathElementArray[3]}/${pathElementArray[4]}"
-              cp -r ${toCopy} ${destination}
-          done
-          
-          
-          ls delta-package/main/default/objects
-          ls delta-package/main/default/objects/Test7__c/
-          
-      - name: create artifacts delta-package
-        uses: actions/upload-artifact@v3
-        with:
-          name: delta-package
-          path: delta-package
-          retention-days: 5
+
           
           
       - name: sfdx installation
@@ -61,7 +33,19 @@ jobs:
           tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
           ./sfdx-cli/install
           
+          sfdx plugins:install sfpowerkit
           
+      - name: create delta-package
+        run: |
+          sfdx sfpowerkit:project:diff --revisionfrom HEAD^ --output delta-package
+          
+          
+      - name: create artifacts delta-package
+        uses: actions/upload-artifact@v3
+        with:
+          name: delta-package
+          path: delta-package
+          retention-days: 5
           
       - name: authorization
         run: |
@@ -76,7 +60,7 @@ jobs:
       - name: deployment 
         run: |
           
-          sfdx force:source:deploy --sourcepath delta-package -u MyOrg
+          sfdx force:source:deploy --sourcepath delta-package/force-app -u MyOrg
           
       - name: merge source
         env:
