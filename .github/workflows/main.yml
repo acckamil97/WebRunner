@@ -5,9 +5,6 @@ on:
     types: [submitted]
     branches: [main]
 
-
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,10 +19,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          
-
-          
-          
+        
       - name: sfdx installation
         run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
@@ -40,7 +34,6 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
           sfdx sfpowerkit:project:diff --revisionfrom origin/${{env.BASE_REF}} --output delta-package
-          
           
       - name: create artifacts delta-package
         uses: actions/upload-artifact@v3
@@ -58,7 +51,6 @@ jobs:
           
           git --version
           
-          
       - name: deployment 
         run: |
           
@@ -75,6 +67,6 @@ jobs:
           git checkout origin/${{env.BASE_REF}}
           git merge origin/${{env.HEAD_REF}} --no-commit
           git add force-app/
-          git commit -m "merge target branch:${{env.HEAD_REF}} and source branch:HEAD^"
+          git commit -m "merge target branch:${{env.HEAD_REF}} and source branch:${{env.BASE_REF}}"
           git push origin HEAD:${{env.BASE_REF}}
       
