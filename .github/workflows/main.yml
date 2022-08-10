@@ -65,11 +65,8 @@ jobs:
           git config --global user.name "acckamil97"
           
           git checkout origin/${{env.BASE_REF}}
-          echo "checkout"
           git merge origin/${{env.HEAD_REF}} --no-commit
-          echo "merge"
           git add force-app/
-          echo "force-app"
           git commit -m "merge target branch:${{env.HEAD_REF}} and source branch:${{env.BASE_REF}}"
           git push origin HEAD:${{env.BASE_REF}}
       
