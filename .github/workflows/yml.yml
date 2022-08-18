@@ -14,4 +14,4 @@ jobs:
         run: |
           pip install shyaml
           cat approvers.yml | shyaml get-value approvers
-          echo approvers.-1
+          echo $approvers.-1
