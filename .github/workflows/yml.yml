@@ -18,3 +18,7 @@ jobs:
           echo "-----------" 
           echo ${approvers[0]}
 
+          cat approvers.yml | shyaml approvers-0 | \
+          while read -r -d $'\0' approver; do
+              echo "RECEIVED: '$approver'"
+          done
