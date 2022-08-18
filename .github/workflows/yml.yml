@@ -13,7 +13,7 @@ jobs:
       - name: Run a one-line script
         run: |
           pip install shyaml
-          approvers = ()
+          declare -A approvers
           cat approvers.yml | shyaml get-value approvers
           
           echo "-----------" 
