@@ -14,7 +14,7 @@ jobs:
         run: |
 
 
-          readarray identityMappings < <(yq e -o=j -I=0 '.identitymappings[]' approvers.yml )
+          readarray identityMappings < <(yq e -o=j -I=0 '.approvers[]' approvers.yml )
 
           for identityMapping in "${identityMappings[@]}"; do
             echo "$identityMapping"
