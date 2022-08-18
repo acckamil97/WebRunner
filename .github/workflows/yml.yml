@@ -9,7 +9,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
+      
+      - name: payload
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          
       - name: Run a one-line script
         run: |
 
