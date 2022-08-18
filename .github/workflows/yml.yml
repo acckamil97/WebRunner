@@ -13,6 +13,10 @@ jobs:
       - name: Run a one-line script
         run: |
 
-          yq 'length.approvers' approvers.yml
-          yq eval '.approvers[0]' approvers.yml
-          
+
+          readarray identityMappings < <(yq e -o=j -I=0 '.identitymappings[]' approvers.yml )
+
+          for identityMapping in "${identityMappings[@]}"; do
+            echo "$identityMapping"
+          done
+
