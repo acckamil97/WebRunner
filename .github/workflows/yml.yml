@@ -13,10 +13,6 @@ jobs:
       - name: Run a one-line script
         run: |
           pip install shyaml
-          approvers=cat approvers.yml | shyaml get-value approvers
-          
-          echo "-----------" 
-          echo ${approvers[0]}
 
           cat approvers.yml | shyaml approvers-0 | \
           while read -r -d $'\0' approver; do
