@@ -15,5 +15,5 @@ jobs:
           pip install shyaml
 
 
-          yq eval '.approvers' approvers.yaml
+          yq eval '.approvers' approvers.yml
           
