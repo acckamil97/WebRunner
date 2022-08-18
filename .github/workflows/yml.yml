@@ -15,10 +15,5 @@ jobs:
           pip install shyaml
 
 
-          cat approvers.yml | shyaml values-0 | \
-          while read -r -d $'\0' value; do
-              echo "RECEIVED: '$value'"
-          done
-          
-          cat approvers.yml | shyaml get-value approvers[0]
+          yq eval '.approvers' approvers.yaml
           
