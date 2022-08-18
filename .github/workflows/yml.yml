@@ -14,5 +14,5 @@ jobs:
         run: |
 
 
-          yq eval '.approvers' approvers.yml
+          yq eval '.approvers[0]' approvers.yml
           
