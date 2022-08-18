@@ -17,4 +17,4 @@ jobs:
           cat approvers.yml | shyaml get-value approvers
           
           echo "-----------" 
-          echo $approvers
+          echo approvers[1]
