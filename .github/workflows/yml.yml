@@ -13,6 +13,6 @@ jobs:
       - name: Run a one-line script
         run: |
 
-          yq --help
+          yq 'length' approvers.yml
           yq eval '.approvers[0]' approvers.yml
           
