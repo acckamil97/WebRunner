@@ -12,5 +12,6 @@ jobs:
 
       - name: Run a one-line script
         run: |
+          pip install shyaml
           cat approvers.yml | shyaml get-value approvers
           echo approvers
