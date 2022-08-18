@@ -19,3 +19,6 @@ jobs:
           while read -r -d $'\0' value; do
               echo "RECEIVED: '$value'"
           done
+          
+          cat approvers.yml | shyaml get-value approvers[0]
+          
