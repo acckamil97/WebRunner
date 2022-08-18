@@ -12,7 +12,6 @@ jobs:
 
       - name: Run a one-line script
         run: |
-          pip install shyaml
 
 
           yq eval '.approvers' approvers.yml
