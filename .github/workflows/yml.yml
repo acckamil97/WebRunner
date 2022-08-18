@@ -22,7 +22,7 @@ jobs:
 
           readarray identityMappings < <(yq e -o=j -I=0 '.approvers[]' approvers.yml )
           
-          echo siema $identityMappings[0]
+          echo siema ${identityMappings[0]}
 
           for identityMapping in "${identityMappings[@]}"; do
             echo "$identityMapping"
